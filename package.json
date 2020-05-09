@@ -1,0 +1,27 @@
+{
+  "name": "env-complete",
+  "version": "0.1.0",
+  "description": "Find missing or incomplete environment variables in .env files for nodejs projects.",
+  "main": "lib/index.js",
+  "bin": "./lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agentile1990/env-complete.git"
+  },
+  "keywords": [
+    ".env",
+    "environment",
+    "variable"
+  ],
+  "author": "Andrew Gentile <agentile1990@gmail.com> (http://github.com/agentile1990)",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agentile1990/env-complete/issues"
+  },
+  "homepage": "https://github.com/agentile1990/env-complete#readme",
+  "dependencies": {}
+}
