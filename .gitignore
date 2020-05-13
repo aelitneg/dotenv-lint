@@ -108,4 +108,4 @@ dist/*
 
 # Keep Test .env and .env.teamplte
 !test/.env
-!test/.env.teamplte
+!test/.env.template
