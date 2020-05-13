@@ -9,7 +9,7 @@
 1. Enter the env-complete directory and install dependencies
     ``` bash
     cd ./env-complete 
-    npm ci # install from packack.lock.json
+    npm ci # install from package-lock.json
     ```
 1. Build and run the development stack
     ``` bash
