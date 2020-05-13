@@ -26,7 +26,9 @@
     "url": "https://github.com/agentile1990/env-complete/issues"
   },
   "homepage": "https://github.com/agentile1990/env-complete#readme",
-  "dependencies": {},
+  "dependencies": {
+    "yargs": "^15.3.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-transform-runtime": "^7.9.6",
