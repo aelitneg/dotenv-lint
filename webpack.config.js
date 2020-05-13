@@ -20,4 +20,8 @@ module.exports = {
             args: ['--path', './test'],
         }),
     ],
+    stats: {
+        // Ignore warnings due to yarg's dynamic module loading
+        warningsFilter: [/node_modules\/yargs/],
+    },
 };
