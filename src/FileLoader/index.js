@@ -27,6 +27,7 @@ class FileLoader {
      */
     async exists(fileName) {
         try {
+            // Await so we can catch the error and check error code
             await accessAsync(path.join(this.path, fileName));
         } catch (error) {
             if (error.code === 'ENOENT') {

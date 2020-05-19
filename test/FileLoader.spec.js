@@ -14,11 +14,11 @@ describe('FileLoaderException', function () {
         try {
             throw new FileLoaderException(message);
         } catch (error) {
-            it('should inherit from Error class', function () {
+            it('should be an instance of FileLoaderException', function () {
                 error.should.be.an.instanceOf(FileLoaderException);
             });
 
-            it('should have property message', function () {
+            it('should have a message', function () {
                 error.message.should.equal(message);
             });
         }
