@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/agentile1990/env-complete#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "yargs": "^15.3.1"
   },
   "devDependencies": {
