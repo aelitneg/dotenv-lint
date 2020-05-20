@@ -1,24 +1,28 @@
 import path from 'path';
 import argv from './Argv';
 
-import FileLoader from './FileLoader';
+import Parser from './Parser';
 
 console.log('[env-complete] starting');
 
-console.log(
-    '[env-complete]',
-    'path:',
-    argv.path ? path.join(process.cwd(), argv.path) : process.cwd(),
-);
+const basePath = argv.path
+    ? path.join(process.cwd(), argv.path)
+    : process.cwd();
 
-const fileLoader = new FileLoader(argv.path ? argv.path : process.cwd());
+console.log('[env-complete]', 'path:', basePath);
 
-console.log('[env-complete] loading .env and .env.template');
-Promise.all([fileLoader.load('.env'), fileLoader.load('.env.template')])
-    .then(function (files) {
-        const [envFile, envTemplate] = files;
-        console.log('[env-complete] loading complete!');
+Parser.run(basePath)
+    .then(function (results) {
+        const { missingKeys, incompleteValues } = results;
+
+        console.log('[env-complete] Keys missing from .env');
+        missingKeys.forEach(function (key) {
+            console.log(key);
+        });
+
+        console.log('[env-complete] Keys with incomplete values in .env');
+        incompleteValues.forEach(function (key) {
+            console.log(key);
+        });
     })
-    .catch(function (error) {
-        console.error('[env-complete]', error);
-    });
+    .catch(function (error) {});
