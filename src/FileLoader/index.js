@@ -24,7 +24,7 @@ class FileLoader {
             if (error.code === 'ENOENT') {
                 throw new FileLoaderException(
                     `File ${path.substr(
-                        path.lastIndexOf('/'),
+                        path.lastIndexOf('/') + 1,
                     )} does not exist or is not accessible.`,
                 );
             }
