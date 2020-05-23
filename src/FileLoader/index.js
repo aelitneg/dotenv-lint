@@ -35,7 +35,7 @@ class FileLoader {
 
     /**
      * Load a file from the directory
-     * @param {String} fileName
+     * @param {String} path
      */
     static async load(path) {
         // Check if file exists
