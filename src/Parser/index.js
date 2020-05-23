@@ -10,11 +10,11 @@ class Parser {
      */
     static async run(basePath) {
         try {
-            const { testFile, masterFile } = await Parser.loadFiles(basePath);
+            const { masterFile, testFile } = await Parser.loadFiles(basePath);
 
-            const { test, master } = Parser.parseFiles(testFile, masterFile);
+            const { master, test } = Parser.parseFiles(masterFile, testFile);
 
-            return Parser.compare(test, master);
+            return Parser.compare(master, test);
         } catch (error) {
             console.error(error);
         }
@@ -25,33 +25,33 @@ class Parser {
      * @param {String} basePath
      */
     static async loadFiles(basePath) {
-        const qTest = FileLoader.load(path.join(basePath, '.env'));
-
         const qMaster = FileLoader.load(path.join(basePath, '.env.template'));
 
-        const [testFile, masterFile] = await Promise.all([qTest, qMaster]);
+        const qTest = FileLoader.load(path.join(basePath, '.env'));
 
-        return { testFile, masterFile };
+        const [masterFile, testFile] = await Promise.all([qMaster, qTest]);
+
+        return { masterFile, testFile };
     }
 
     /**
      * Use dotenv to parse contents of files
-     * @param {Buffer} testFile
      * @param {Buffer} masterFile
+     * @param {Buffer} testFile
      */
-    static parseFiles(testFile, masterFile) {
-        const test = parse(testFile);
+    static parseFiles(masterFile, testFile) {
         const master = parse(masterFile);
+        const test = parse(testFile);
 
-        return { test, master };
+        return { master, test };
     }
 
     /**
      * Compare keys / values for objects
-     * @param {Object} test
      * @param {Object} master
+     * @param {Object} test
      */
-    static compare(test, master) {
+    static compare(master, test) {
         const missingKeys = [];
         const incompleteValues = [];
 
