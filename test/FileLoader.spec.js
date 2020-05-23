@@ -1,4 +1,4 @@
-import chai, { expect } from 'chai';
+import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 
 import path from 'path';
@@ -26,39 +26,24 @@ describe('FileLoaderException', function () {
 });
 
 describe('FileLoader', function () {
-    const relativePath = './test';
-    const fileLoader = new FileLoader(relativePath);
-
-    describe('constructor', function () {
-        it('default path is process.cwd()', function () {
-            const defaultFileLoader = new FileLoader();
-            defaultFileLoader.path.should.equal(process.cwd());
-        });
-
-        it('accepts custom path', function () {
-            fileLoader.path.should.equal(
-                path.join(process.cwd(), relativePath),
-            );
-        });
-    });
-
     describe('exists', function () {
         it('should be fulfilled for files that exist (.env)', function () {
-            return fileLoader.exists('.env').should.be.fulfilled;
+            return FileLoader.exists(path.join(process.cwd(), '/test/.env'))
+                .should.be.fulfilled;
         });
 
         it('should be rejected for files that do not exist (.env.doesNotExist)', function () {
-            return fileLoader
-                .exists('.env.doesNotExist')
-                .should.be.rejectedWith(FileLoaderException);
+            return FileLoader.exists(
+                path.join(process.cwd(), '/test/.env.doesNotExist'),
+            ).should.be.rejectedWith(FileLoaderException);
         });
     });
 
     describe('load', function () {
         it('should load file', function () {
-            return fileLoader
-                .load('.env')
-                .should.eventually.have.lengthOf.gt(0);
+            return FileLoader.load(
+                path.join(process.cwd(), '/test/.env'),
+            ).should.eventually.have.lengthOf.gt(0);
         });
     });
 });
