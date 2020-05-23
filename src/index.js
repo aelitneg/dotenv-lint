@@ -25,4 +25,6 @@ Parser.run(basePath)
             console.log(key);
         });
     })
-    .catch(function (error) {});
+    .catch(function (error) {
+        console.error(error);
+    });
