@@ -3,24 +3,24 @@ import argv from './Argv';
 
 import Parser from './Parser';
 
-console.log('[env-complete] starting');
+console.log('[envlint] starting');
 
 const basePath = argv.path
     ? path.join(process.cwd(), argv.path)
     : process.cwd();
 
-console.log('[env-complete]', 'path:', basePath);
+console.log('[envlint]', 'path:', basePath);
 
 Parser.run(basePath)
     .then(function (results) {
         const { missingKeys, incompleteValues } = results;
 
-        console.log('[env-complete] Keys missing from .env');
+        console.log('[envlint] Keys missing from .env');
         missingKeys.forEach(function (key) {
             console.log(key);
         });
 
-        console.log('[env-complete] Keys with incomplete values in .env');
+        console.log('[envlint] Keys with incomplete values in .env');
         incompleteValues.forEach(function (key) {
             console.log(key);
         });
