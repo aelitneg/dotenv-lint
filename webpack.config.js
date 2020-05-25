@@ -7,7 +7,7 @@ module.exports = {
     target: 'node',
     entry: './src/index.js',
     output: {
-        filename: 'env-complete.js',
+        filename: 'envlint.js',
         path: path.resolve(__dirname, 'dist'),
     },
     plugins: [

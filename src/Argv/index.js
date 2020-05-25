@@ -3,7 +3,7 @@ import { name, version } from '../../package.json';
 
 const argv = yargs
     .usage(`${name} ${version}`)
-    .usage('Usage: env-complete [options]')
+    .usage('Usage: envlint [options]')
     .string('path')
     .alias('path', 'p')
     .nargs('path', 1)
