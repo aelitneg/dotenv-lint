@@ -24,7 +24,7 @@ class EnvLint {
      * @param {Array<String>} test
      */
     constructor(path, master, test) {
-        this.path = path;
+        this.path = path ? path : '';
         this.master = master ? master : '.env.template';
         this.test = Array.isArray(test) && test.length ? test : ['.env'];
 
@@ -67,8 +67,11 @@ class EnvLint {
         tests.forEach((test) => {
             const result = new EnvLintResult(master, test);
 
-            result.missingKeys = this.findMissingKeys(master, test);
-            result.incompleteKeys = this.findIncompleteValues(master, test);
+            result.missingKeys = this.findMissingKeys(master.data, test.data);
+            result.incompleteKeys = this.findIncompleteKeys(
+                master.data,
+                test.data,
+            );
 
             results.push(result);
         });
@@ -78,15 +81,15 @@ class EnvLint {
 
     /**
      * Find Missing Keys
-     * @param {EnvFile} master
-     * @param {EnvFile} test
+     * @param {Object} master
+     * @param {Object} test
      *
      */
     findMissingKeys(master, test) {
         const missingKeys = [];
 
-        Object.keys(master.data).forEach(function (key) {
-            if (!test.data.hasOwnProperty(key)) {
+        Object.keys(master).forEach(function (key) {
+            if (!test.hasOwnProperty(key)) {
                 missingKeys.push(key);
             }
         });
@@ -99,10 +102,10 @@ class EnvLint {
      * @param {*} master
      * @param {*} test
      */
-    findIncompleteValues(master, test) {
+    findIncompleteKeys(master, test) {
         const incompleteKeys = [];
-        Object.keys(master.data).forEach(function (key) {
-            if (test.data.hasOwnProperty(key) && !test.data[key]) {
+        Object.keys(master).forEach(function (key) {
+            if (test.hasOwnProperty(key) && test[key] === '') {
                 incompleteKeys.push(key);
             }
         });
