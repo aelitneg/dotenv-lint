@@ -6,8 +6,8 @@
   "main": "dist/envlint.js",
   "bin": "./dist/envlint.js",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack --watch",
+    "build": "webpack --env.NODE_ENV=production",
+    "dev": "webpack --env.NODE_ENV=development --watch",
     "test": "./node_modules/.bin/mocha --require @babel/register"
   },
   "repository": {
