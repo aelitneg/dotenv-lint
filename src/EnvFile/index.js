@@ -14,7 +14,7 @@ const readFileAsync = promisify(readFile);
 /**
  * EnvFile
  *
- * An class representing an .env file
+ * A class representing an .env file
  * @typedef {Object} EnvFile
  * @property {String} name
  * @property {String} path
@@ -39,7 +39,7 @@ class EnvFile {
     }
 
     /**
-     * Load data data from file system
+     * Load data from file system
      */
     async load() {
         this.data = parse(
