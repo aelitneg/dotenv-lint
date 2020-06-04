@@ -32,7 +32,7 @@ class EnvLint {
     }
 
     /**
-     * Create EnvFile Objects and Load Data
+     * Create EnvFile objects and load data
      */
     load() {
         this.files[this.master] = new EnvFile(
@@ -45,7 +45,7 @@ class EnvLint {
             this.files[t] = new EnvFile(t, this.path, EnvType.TEST);
         });
 
-        // Load Data into EnvFiles
+        // Load data into EnvFiles
         const q = [];
         for (const key in this.files) {
             q.push(this.files[key].load());
@@ -80,10 +80,9 @@ class EnvLint {
     }
 
     /**
-     * Find Missing Keys
+     * Find missing keys
      * @param {Object} master
      * @param {Object} test
-     *
      */
     findMissingKeys(master, test) {
         const missingKeys = [];
@@ -98,7 +97,7 @@ class EnvLint {
     }
 
     /**
-     *Find Incomplete Keys
+     *Find incomplete keys
      * @param {*} master
      * @param {*} test
      */

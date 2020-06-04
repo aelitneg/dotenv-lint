@@ -163,7 +163,7 @@ describe('EnvLint', function () {
                     .should.notify(done);
             });
 
-            it('should reject when no files are not found', function () {
+            it('should reject when files are not found', function () {
                 return EnvLint.run('/doesNotExist').should.be.rejected;
             });
         });
