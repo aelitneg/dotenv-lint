@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/agentile1990/envlint#readme",
   "dependencies": {
+    "chalk": "^4.0.0",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "yargs": "^15.3.1"
