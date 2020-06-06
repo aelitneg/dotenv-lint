@@ -1,7 +1,7 @@
 'use strict';
 
 import { red, yellow, bold, underline, dim } from 'chalk';
-import { padStart, padEnd } from 'lodash';
+import { padEnd } from 'lodash';
 
 /**
  * @typedef {import('../EnvFile').EnvFile} EnvFile
