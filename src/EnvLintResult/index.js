@@ -5,7 +5,7 @@
  */
 
 /**
- * @type {Object} EnvLintResult
+ * @typedef {Object} EnvLintResult
  * @property {EnvFile} master
  * @property {EnvFile} test
  * @property {Array<string>} missingKeys
