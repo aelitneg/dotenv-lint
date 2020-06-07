@@ -51,121 +51,121 @@ describe('EnvLint', function () {
                 envLint.should.have.property('test').with.members([test[0]]);
             });
         });
+    });
 
-        describe('load', async function () {
-            it('should load master file', function (done) {
-                const envLint = new EnvLint('/test');
-                return envLint
-                    .load()
-                    .then(function () {
-                        envLint.files.should.have
-                            .property('.env.template')
-                            .with.property('data')
-                            .with.property('COMPLETE_KEY');
-                    })
-                    .should.notify(done);
-            });
-
-            it('should load test file', function (done) {
-                const envLint = new EnvLint('/test');
-                return envLint
-                    .load()
-                    .then(function () {
-                        envLint.files.should.have
-                            .property('.env')
-                            .with.property('data')
-                            .with.property('COMPLETE_KEY');
-                    })
-                    .should.notify(done);
-            });
+    describe('load', async function () {
+        it('should load master file', function (done) {
+            const envLint = new EnvLint('./test');
+            return envLint
+                .load()
+                .then(function () {
+                    envLint.files.should.have
+                        .property('.env.template')
+                        .with.property('data')
+                        .with.property('COMPLETE_KEY');
+                })
+                .should.notify(done);
         });
 
-        describe('lint', function () {
-            const envLint = new EnvLint('/test');
+        it('should load test file', function (done) {
+            const envLint = new EnvLint('./test');
+            return envLint
+                .load()
+                .then(function () {
+                    envLint.files.should.have
+                        .property('.env')
+                        .with.property('data')
+                        .with.property('COMPLETE_KEY');
+                })
+                .should.notify(done);
+        });
+    });
 
-            it('should return instance of Array of EnvLintResult with results', function (done) {
-                return envLint
-                    .load()
-                    .then(function () {
-                        const results = envLint.lint();
+    describe('lint', function () {
+        const envLint = new EnvLint('./test');
 
-                        results.should.be.instanceOf(Array);
-                        const [result] = results;
+        it('should return instance of Array of EnvLintResult with results', function (done) {
+            return envLint
+                .load()
+                .then(function () {
+                    const results = envLint.lint();
 
-                        result.should.be.instanceOf(EnvLintResult);
+                    results.should.be.instanceOf(Array);
+                    const [result] = results;
 
-                        result.should.have
-                            .property('missingKeys')
-                            .with.length(1)
-                            .and.members(['MISSING_KEY']);
+                    result.should.be.instanceOf(EnvLintResult);
 
-                        result.should.have
-                            .property('incompleteKeys')
-                            .with.length(1)
-                            .and.members(['MISSING_VALUE']);
-                    })
-                    .should.notify(done);
-            });
+                    result.should.have
+                        .property('missingKeys')
+                        .with.length(1)
+                        .and.members(['MISSING_KEY']);
+
+                    result.should.have
+                        .property('incompleteKeys')
+                        .with.length(1)
+                        .and.members(['MISSING_VALUE']);
+                })
+                .should.notify(done);
+        });
+    });
+
+    describe('findMissingKeys', function () {
+        const envLint = new EnvLint('/test');
+
+        const master = {
+            a: true,
+            b: false,
+        };
+
+        const test = {
+            a: true,
+        };
+
+        it('should return array of missing keys', function () {
+            const result = envLint.findMissingKeys(master, test);
+            result.should.be
+                .instanceOf(Array)
+                .and.have.length(1)
+                .and.have.members(['b']);
+        });
+    });
+
+    describe('findIncompleteKeys', function () {
+        const envLint = new EnvLint('/test');
+
+        const master = {
+            a: true,
+            b: false,
+        };
+
+        const test = {
+            a: true,
+            b: '',
+        };
+
+        it('should return array of keys with incomplete values', function () {
+            const result = envLint.findIncompleteKeys(master, test);
+            result.should.be
+                .instanceOf(Array)
+                .and.have.length(1)
+                .and.have.members(['b']);
+        });
+    });
+
+    describe('run', function () {
+        it('should return Array of EnvLintResult', function (done) {
+            return EnvLint.run('./test')
+                .then(function (results) {
+                    results.should.be.instanceOf(Array);
+
+                    const [result] = results;
+                    result.should.be.instanceOf(EnvLintResult);
+                })
+                .should.notify(done);
         });
 
-        describe('findMissingKeys', function () {
-            const envLint = new EnvLint('/test');
-
-            const master = {
-                a: true,
-                b: false,
-            };
-
-            const test = {
-                a: true,
-            };
-
-            it('should return array of missing keys', function () {
-                const result = envLint.findMissingKeys(master, test);
-                result.should.be
-                    .instanceOf(Array)
-                    .and.have.length(1)
-                    .and.have.members(['b']);
-            });
-        });
-
-        describe('findIncompleteKeys', function () {
-            const envLint = new EnvLint('/test');
-
-            const master = {
-                a: true,
-                b: false,
-            };
-
-            const test = {
-                a: true,
-                b: '',
-            };
-
-            it('should return array of keys with incomplete values', function () {
-                const result = envLint.findIncompleteKeys(master, test);
-                result.should.be
-                    .instanceOf(Array)
-                    .and.have.length(1)
-                    .and.have.members(['b']);
-            });
-        });
-
-        describe('run', function () {
-            it('should return Array of EnvLintResult', function (done) {
-                return EnvLint.run('/test')
-                    .then(function (results) {
-                        results.should.be.instanceOf(Array);
-
-                        const [result] = results;
-                        result.should.be.instanceOf(EnvLintResult);
-                    })
-                    .should.notify(done);
-            });
-
-            it('should reject when files are not found', function () {
-                return EnvLint.run('/doesNotExist').should.be.rejected;
-            });
+        it('should reject when files are not found', function () {
+            return EnvLint.run('/doesNotExist').should.be.rejected;
         });
     });
 });
