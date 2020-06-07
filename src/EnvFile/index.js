@@ -32,19 +32,31 @@ class EnvFile {
      */
     constructor(name, path, type) {
         this.name = name;
-        this.path = path;
+        this.path = this.parsePath(path);
         this.type = type;
 
         this.data = null;
     }
 
     /**
+     * Parse absolute / relative paths, if given
+     * @param {String} p path
+     */
+    parsePath(p) {
+        if (p.startsWith('/')) {
+            return p;
+        } else if (p.startsWith('.')) {
+            return path.join(process.cwd(), p);
+        } else {
+            return process.cwd();
+        }
+    }
+
+    /**
      * Load data from file system
      */
     async load() {
-        this.data = parse(
-            await readFileAsync(path.join(process.cwd(), this.path, this.name)),
-        );
+        this.data = parse(await readFileAsync(path.join(this.path, this.name)));
     }
 }
 
