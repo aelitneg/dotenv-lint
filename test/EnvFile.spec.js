@@ -35,7 +35,7 @@ describe('EnvFile', function () {
     });
 
     describe('parsePath', function () {
-        it('it should leave absolute paths unchanged', function () {
+        it('should leave absolute paths unchanged', function () {
             const absolutePath = '/absolute/path';
             envFile.parsePath(absolutePath).should.equal(absolutePath);
         });
