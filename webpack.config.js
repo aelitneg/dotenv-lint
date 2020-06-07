@@ -18,7 +18,7 @@ module.exports = (env) => {
                 entryOnly: true,
             }),
             new NodemonPlugin({
-                args: ['--path', '/test'],
+                args: ['--path', './test'],
             }),
         ],
         stats: {
