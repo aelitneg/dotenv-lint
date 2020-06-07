@@ -10,7 +10,7 @@ const argv = yargs
     .describe('path', 'path to directory containing .env and template files')
     .help('help')
     .alias('help', 'h')
-    .version('version', '1.0.1')
+    .version('version', version)
     .alias('version', 'v').argv;
 
 export default argv;
