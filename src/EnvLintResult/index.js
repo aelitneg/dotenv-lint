@@ -3,16 +3,21 @@
 import { red, yellow, bold, underline, dim } from 'chalk';
 import { padEnd } from 'lodash';
 
+const colors = Object.freeze({
+    red: red,
+    yellow: yellow,
+});
+
 /**
  * @typedef {import('../EnvFile').EnvFile} EnvFile
+ * @typedef {import('../TestResult').TestResult} TestResult
  */
 
 /**
  * @typedef {Object} EnvLintResult
  * @property {EnvFile} master
  * @property {EnvFile} test
- * @property {Array<string>} missingKeys
- * @property {Array<string>} incompleteKeys
+ * @property {Object} testResults collection Rule.name:TestResult objects
  */
 class EnvLintResult {
     /**
@@ -23,8 +28,7 @@ class EnvLintResult {
     constructor(master, test) {
         this.master = master;
         this.test = test;
-        this.missingKeys = [];
-        this.incompleteKeys = [];
+        this.testResults = {};
     }
 
     /**
@@ -37,23 +41,33 @@ class EnvLintResult {
             '\n',
         );
 
-        this.missingKeys.forEach(function (key) {
-            console.log(
-                padEnd(null, 2),
-                red(padEnd('error', 5)),
-                padEnd(key, 24),
-                dim('missing key'),
-            );
-        });
+        for (const key in this.testResults) {
+            const testResult = this.testResults[key];
 
-        this.incompleteKeys.forEach(function (key) {
-            console.log(
-                padEnd(null, 2),
-                yellow(padEnd('warn', 5)),
-                padEnd(key, 24),
-                dim('incomplete key'),
-            );
-        });
+            testResult.data.forEach((d) => {
+                console.log(
+                    padEnd(null, 2),
+                    colors[this._getLogColor(testResult.logLevel.value)](
+                        padEnd(testResult.logLevel.name, 5),
+                    ),
+                    padEnd(d, 24),
+                    dim(key),
+                );
+            });
+        }
+    }
+
+    /**
+     * Get console color for log level
+     * @param {Number} logLevel
+     */
+    _getLogColor(logLevel) {
+        switch (logLevel) {
+            case 0:
+                return 'red';
+            case 1:
+                return 'yellow';
+        }
     }
 
     /**
@@ -63,31 +77,25 @@ class EnvLintResult {
     static print(results) {
         // Print details of each result
         results.forEach(function (result) {
-            if (result.missingKeys.length || result.incompleteKeys.length) {
+            if (Object.keys(result.testResults).length) {
                 result._print();
             }
         });
-
-        // Calculate summary data
-        let errors = 0;
-        let warnings = 0;
-
-        const reducer = (acc, v) => acc + 1;
-
-        results.forEach(function (result) {
-            errors += result.missingKeys.reduce(reducer, 0);
-            warnings += result.incompleteKeys.reduce(reducer, 0);
-        });
-
-        if (!errors && !warnings) {
-            return;
-        }
-
-        const summary = `\n ${'\u2716'} ${
-            errors + warnings
-        } problems (${errors} error, ${warnings} warning)`;
-
-        console.log(bold(errors ? red(summary) : yellow(summary)));
+        // // Calculate summary data
+        // let errors = 0;
+        // let warnings = 0;
+        // const reducer = (acc, v) => acc + 1;
+        // results.forEach(function (result) {
+        //     errors += result.missingKeys.reduce(reducer, 0);
+        //     warnings += result.incompleteKeys.reduce(reducer, 0);
+        // });
+        // if (!errors && !warnings) {
+        //     return;
+        // }
+        // const summary = `\n ${'\u2716'} ${
+        //     errors + warnings
+        // } problems (${errors} error, ${warnings} warning)`;
+        // console.log(bold(errors ? red(summary) : yellow(summary)));
     }
 }
 

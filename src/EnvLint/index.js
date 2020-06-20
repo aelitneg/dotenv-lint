@@ -4,6 +4,7 @@ import { filter, find } from 'lodash';
 import EnvFile from '../EnvFile';
 import EnvType from '../EnvType';
 import EnvLintResult from '../EnvLintResult';
+import Rules from '../Rules';
 
 /**
  * EnvLint
@@ -67,49 +68,18 @@ class EnvLint {
         tests.forEach((test) => {
             const result = new EnvLintResult(master, test);
 
-            result.missingKeys = this.findMissingKeys(master.data, test.data);
-            result.incompleteKeys = this.findIncompleteKeys(
-                master.data,
-                test.data,
-            );
+            Rules.forEach(function (rule) {
+                const testResult = rule.testFn(master.data, test.data);
+
+                if (!testResult.pass) {
+                    result.testResults[rule.name] = testResult;
+                }
+            });
 
             results.push(result);
         });
 
         return results;
-    }
-
-    /**
-     * Find missing keys
-     * @param {Object} master
-     * @param {Object} test
-     */
-    findMissingKeys(master, test) {
-        const missingKeys = [];
-
-        Object.keys(master).forEach(function (key) {
-            if (!test.hasOwnProperty(key)) {
-                missingKeys.push(key);
-            }
-        });
-
-        return missingKeys;
-    }
-
-    /**
-     *Find incomplete keys
-     * @param {*} master
-     * @param {*} test
-     */
-    findIncompleteKeys(master, test) {
-        const incompleteKeys = [];
-        Object.keys(master).forEach(function (key) {
-            if (test.hasOwnProperty(key) && test[key] === '') {
-                incompleteKeys.push(key);
-            }
-        });
-
-        return incompleteKeys;
     }
 
     /**
