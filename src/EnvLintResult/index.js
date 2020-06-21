@@ -2,6 +2,7 @@
 
 import { red, yellow, bold, underline, dim } from 'chalk';
 import { padEnd } from 'lodash';
+import LogLevel from '../LogLevel';
 
 const colors = Object.freeze({
     red: red,
@@ -18,6 +19,8 @@ const colors = Object.freeze({
  * @property {EnvFile} master
  * @property {EnvFile} test
  * @property {Object} testResults collection Rule.name:TestResult objects
+ * @property {Number} errors
+ * @property {Number} warnings
  */
 class EnvLintResult {
     /**
@@ -81,21 +84,41 @@ class EnvLintResult {
                 result._print();
             }
         });
-        // // Calculate summary data
-        // let errors = 0;
-        // let warnings = 0;
-        // const reducer = (acc, v) => acc + 1;
-        // results.forEach(function (result) {
-        //     errors += result.missingKeys.reduce(reducer, 0);
-        //     warnings += result.incompleteKeys.reduce(reducer, 0);
-        // });
-        // if (!errors && !warnings) {
-        //     return;
-        // }
-        // const summary = `\n ${'\u2716'} ${
-        //     errors + warnings
-        // } problems (${errors} error, ${warnings} warning)`;
-        // console.log(bold(errors ? red(summary) : yellow(summary)));
+        // Calculate summary data
+        let errors = 0;
+        let warnings = 0;
+
+        results.forEach(function (result) {
+            errors += result.errors;
+            warnings += result.errors;
+        });
+
+        const summary = `\n ${'\u2716'} ${
+            errors + warnings
+        } problems (${errors} error, ${warnings} warning)`;
+        console.log(bold(errors ? red(summary) : yellow(summary)));
+    }
+
+    get errors() {
+        let sum = 0;
+        for (const key in this.testResults) {
+            if (this.testResults[key].logLevel === LogLevel.ERROR) {
+                sum += this.testResults[key].errors;
+            }
+        }
+
+        return sum;
+    }
+
+    get warnings() {
+        let sum = 0;
+        for (const key in this.testResults) {
+            if (this.testResults[key].logLevel === LogLevel.WARN) {
+                sum += testResulults[key].errors;
+            }
+        }
+
+        return sum;
     }
 }
 
