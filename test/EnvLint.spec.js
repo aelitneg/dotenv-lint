@@ -94,61 +94,8 @@ describe('EnvLint', function () {
                     const [result] = results;
 
                     result.should.be.instanceOf(EnvLintResult);
-
-                    result.should.have
-                        .property('missingKeys')
-                        .with.length(1)
-                        .and.members(['MISSING_KEY']);
-
-                    result.should.have
-                        .property('incompleteKeys')
-                        .with.length(1)
-                        .and.members(['MISSING_VALUE']);
                 })
                 .should.notify(done);
-        });
-    });
-
-    describe('findMissingKeys', function () {
-        const envLint = new EnvLint('/test');
-
-        const master = {
-            a: true,
-            b: false,
-        };
-
-        const test = {
-            a: true,
-        };
-
-        it('should return array of missing keys', function () {
-            const result = envLint.findMissingKeys(master, test);
-            result.should.be
-                .instanceOf(Array)
-                .and.have.length(1)
-                .and.have.members(['b']);
-        });
-    });
-
-    describe('findIncompleteKeys', function () {
-        const envLint = new EnvLint('/test');
-
-        const master = {
-            a: true,
-            b: false,
-        };
-
-        const test = {
-            a: true,
-            b: '',
-        };
-
-        it('should return array of keys with incomplete values', function () {
-            const result = envLint.findIncompleteKeys(master, test);
-            result.should.be
-                .instanceOf(Array)
-                .and.have.length(1)
-                .and.have.members(['b']);
         });
     });
 
