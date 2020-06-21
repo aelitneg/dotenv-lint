@@ -1,5 +1,7 @@
 'use strict';
 
+import LogLevel from '../LogLevel';
+
 /**
  * @typedef {import('../LogLevel').LogLevel} LogLevel
  */
@@ -12,6 +14,8 @@
  * @property {Boolean} pass success / failure of test
  * @property {LogLevel} logLevel
  * @property {Array} data data returned from test
+ * @property {Number} errors
+ * @property {Number} warnings
  */
 class TestResult {
     /**
@@ -36,6 +40,22 @@ class TestResult {
 
     get data() {
         return this._data;
+    }
+
+    get warnings() {
+        if (this._logLevel !== LogLevel.WARN) {
+            return 0;
+        }
+
+        return this._data.length;
+    }
+
+    get errors() {
+        if (this._logLevel !== LogLevel.ERROR) {
+            return 0;
+        }
+
+        return this._data.length;
     }
 }
 
