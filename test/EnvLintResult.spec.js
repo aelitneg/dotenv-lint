@@ -3,6 +3,7 @@ import chai from 'chai';
 import EnvFile from '../src/EnvFile';
 import EnvType from '../src/EnvType';
 import EnvLintResult from '../src/EnvLintResult';
+import LogLevel from '../src/LogLevel';
 
 chai.should();
 
@@ -25,15 +26,29 @@ describe('EnvLintResult', function () {
         envLintResult.should.have.property('test').with.instanceOf(EnvFile);
     });
 
-    it('should have missingKeys', function () {
-        envLintResult.should.have
-            .property('missingKeys')
-            .with.instanceOf(Array);
+    it('should have testResults', function () {
+        envLintResult.should.have.property('testResults');
     });
 
-    it('should have incompleteKeys', function () {
-        envLintResult.should.have
-            .property('incompleteKeys')
-            .with.instanceOf(Array);
+    it('should have errors', function () {
+        envLintResult.should.have.property('warnings').with.equal(0);
+    });
+
+    it('should have warnings', function () {
+        envLintResult.should.have.property('warnings').with.equal(0);
+    });
+
+    describe('getLogColor', function () {
+        it('should return "red" for errors', function () {
+            envLintResult
+                ._getLogColor(LogLevel.ERROR.value)
+                .should.equal('red');
+        });
+
+        it('should return "yellow" for warnings', function () {
+            envLintResult
+                ._getLogColor(LogLevel.WARN.value)
+                .should.equal('yellow');
+        });
     });
 });
