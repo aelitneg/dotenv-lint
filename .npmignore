@@ -1,0 +1,46 @@
+#
+# GitHub
+#
+.github
+
+#
+# Visual Studio Code
+#
+.vscode
+
+#
+# Node Modules
+#
+node_modules
+
+#
+# Tests
+#
+test
+
+#
+# Babel
+#
+.babelrc
+
+#
+# ESLint
+#
+.eslintcache
+.eslintignore
+.eslintrc.js
+
+#
+# Prettier
+#
+.prettierrc.jrs
+
+#
+# Docs
+#
+*.md
+
+#
+# WebPack
+#
+webpack.config.js
