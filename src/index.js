@@ -5,7 +5,17 @@ import { version } from '../package.json';
 
 EnvLint.run(argv.path, argv.master, argv.test)
     .then(function (results) {
-        EnvLintResult.print(results);
+        const { errors, warnings } = EnvLintResult.print(results);
+
+        switch (argv.exit) {
+            case 'warn':
+                process.exit(warnings ? 1 : 0);
+            case 'error':
+                process.exit(errors ? 1 : 0);
+            case 'none':
+            default:
+                process.exit(0);
+        }
     })
     .catch(function (error) {
         console.log('\n Oops! Something went wrong! :(');

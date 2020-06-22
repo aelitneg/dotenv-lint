@@ -8,6 +8,13 @@ const argv = yargs
     .alias('path', 'p')
     .nargs('path', 1)
     .describe('path', 'path to directory containing .env and template files')
+    .choices('exit', ['none', 'error', 'warn'])
+    .default('exit', 'none')
+    .alias('exit', 'e')
+    .describe(
+        'exit',
+        'condition to exit with non-zero exit code (stop npm script)',
+    )
     .help('help')
     .alias('help', 'h')
     .version('version', version)
