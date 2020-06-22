@@ -1,9 +1,9 @@
 {
-  "name": "env-lint",
+  "name": "dotenv-lint",
   "version": "0.1.0",
   "description": "Find missing or incomplete environment variables in .env files for nodejs projects.",
-  "main": "dist/env-lint.js",
-  "bin": "./dist/env-lint.js",
+  "main": "dist/dotenv-lint.js",
+  "bin": "./dist/dotenv-lint.js",
   "scripts": {
     "build": "webpack --env.NODE_ENV=production",
     "dev": "webpack --env.NODE_ENV=development --watch",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/agentile1990/env-lint.git"
+    "url": "git+https://github.com/agentile1990/dotenv-lint.git"
   },
   "keywords": [
     ".env",
@@ -22,9 +22,9 @@
   "contributors": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/agentile1990/env-lint/issues"
+    "url": "https://github.com/agentile1990/dotenv-lint/issues"
   },
-  "homepage": "https://github.com/agentile1990/env-lint#readme",
+  "homepage": "https://github.com/agentile1990/dotenv-lint#readme",
   "dependencies": {
     "chalk": "^4.0.0",
     "dotenv": "^8.2.0",
