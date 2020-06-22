@@ -84,19 +84,22 @@ class EnvLintResult {
                 result._print();
             }
         });
+
         // Calculate summary data
         let errors = 0;
         let warnings = 0;
 
         results.forEach(function (result) {
             errors += result.errors;
-            warnings += result.errors;
+            warnings += result.warnings;
         });
 
         const summary = `\n ${'\u2716'} ${
             errors + warnings
         } problems (${errors} error, ${warnings} warning)`;
         console.log(bold(errors ? red(summary) : yellow(summary)));
+
+        return { errors: errors, warnings: warnings };
     }
 
     get errors() {
@@ -114,7 +117,7 @@ class EnvLintResult {
         let sum = 0;
         for (const key in this.testResults) {
             if (this.testResults[key].logLevel === LogLevel.WARN) {
-                sum += testResulults[key].errors;
+                sum += this.testResults[key].warnings;
             }
         }
 
