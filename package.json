@@ -1,6 +1,6 @@
 {
   "name": "dotenv-lint",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Find missing or incomplete environment variables in .env files for nodejs projects.",
   "main": "dist/dotenv-lint.js",
   "bin": "./dist/dotenv-lint.js",

@@ -1,4 +1,9 @@
 # dotenv-lint
+![npm](https://img.shields.io/npm/v/dotenv-lint)
+![build](https://github.com/agentile1990/dotenv-lint/workflows/build/badge.svg)
+![NPM](https://img.shields.io/npm/l/dotenv-lint)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
 
 dotenv-lint is a tool for identifying issues with `.env` files in nodejs projects. It uses [dotenv](https://www.npmjs.com/package/dotenv) to read a _master_ and one or more _test_ `.env` files and compares them against eachother against a set of rules. 
 
