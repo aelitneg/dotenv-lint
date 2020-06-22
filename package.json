@@ -1,6 +1,6 @@
 {
   "name": "dotenv-lint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tool for identifying issues with .env files in nodejs projects.",
   "main": "dist/dotenv-lint.js",
   "bin": "./dist/dotenv-lint.js",
@@ -15,6 +15,12 @@
   },
   "keywords": [
     ".env",
+    "dotenv",
+    "lint",
+    "linter",
+    "envlint",
+    "env-lint",
+    "env-linter",
     "environment",
     "variable"
   ],

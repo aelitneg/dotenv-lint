@@ -5,7 +5,7 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 
-dotenv-lint is a tool for identifying issues with `.env` files in nodejs projects. It uses [dotenv](https://www.npmjs.com/package/dotenv) to read a _master_ and one or more _test_ `.env` files and compares them against eachother against a set of rules. 
+dotenv-lint is a tool for identifying issues with `.env` files in nodejs projects. It uses [dotenv](https://www.npmjs.com/package/dotenv) to read a _master_ and one or more _test_ `.env` files and compares them against each other according to a set of rules. 
 
 ## Installation
 
@@ -15,9 +15,9 @@ npm install --save-dev dotenv-lint
 
 ## Usage
 
-**Imporant:** By default, dotenv-lint runs in the **current directory** and uses **`.env.template`** as the **_master_** and **`.env`** as the **_test_**.
+**Imporant:** By default, dotenv-lint runs in the **current directory** and uses `.env.template` as the*_master_ and `.env` as the _test_.
 
-dotenv-lint is primarily a CLI tool intended to be run inside an NPM script: 
+dotenv-lint is primarily a CLI tool intended to be run via an NPM script: 
 
 ``` JSON
 {
@@ -43,8 +43,8 @@ dotenv-lint [options] # linked or installed globally
 - exit [e] - condition to exit with non-zero exit code (stops execution of npm script)
     - _Options:_
         - `none` - (default) always exit cleanly
-        - `error` - exit only if errors
-        - `warn` - exit if warnings
+        - `error` - exit(1) only if errors
+        - `warn` - exit(1) if warnings
 
 ## Examples
 - All default options
