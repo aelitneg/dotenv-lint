@@ -33,7 +33,7 @@ test
 #
 # Prettier
 #
-.prettierrc.jrs
+.prettierrc.js
 
 #
 # Docs

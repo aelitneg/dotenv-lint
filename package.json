@@ -2,7 +2,6 @@
   "name": "envlint",
   "version": "0.1.0",
   "description": "Find missing or incomplete environment variables in .env files for nodejs projects.",
-  "private": true,
   "main": "dist/envlint.js",
   "bin": "./dist/envlint.js",
   "scripts": {
