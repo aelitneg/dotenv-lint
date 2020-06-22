@@ -8,7 +8,7 @@ module.exports = (env) => {
         target: 'node',
         entry: './src/index.js',
         output: {
-            filename: 'envlint.js',
+            filename: 'env-lint.js',
             path: path.resolve(__dirname, 'dist'),
         },
         plugins: [
