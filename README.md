@@ -1,6 +1,6 @@
 # env-lint
 
-env-lint is a tool for identifying issues with `.env` files in nodejs projects. It uses [dotenv]() to read a _master_ and one or more _test_ `.env` files and compares them against eachother against a set of rules. 
+env-lint is a tool for identifying issues with `.env` files in nodejs projects. It uses [dotenv](https://www.npmjs.com/package/dotenv) to read a _master_ and one or more _test_ `.env` files and compares them against eachother against a set of rules. 
 
 ## Installation
 
