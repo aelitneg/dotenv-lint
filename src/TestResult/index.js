@@ -22,6 +22,7 @@ class TestResult {
      * Creates a new test result
      *
      * @param {Boolean} pass
+     * @param {LogLevel} logLevel
      * @param {Array} data
      */
     constructor(pass, logLevel, data) {
