@@ -4,6 +4,8 @@
 ![NPM](https://img.shields.io/npm/l/dotenv-lint)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
+## ⚠️This repository is no longer maintained⚠️
+I originally built this project to solve a dev environment problem at work, but it ultimately never made it into our stack. When I released it, someone suggested turning this into a plugin for ESLint. The more I think about that, the more it makes sense and so, here we are. Hopefully, in the not so distant future, this will have been ported to an ESLint plugin for everyone to enjoy!
 
 dotenv-lint is a tool for identifying issues with `.env` files in nodejs projects. It uses [dotenv](https://www.npmjs.com/package/dotenv) to read a _master_ and one or more _test_ `.env` files and compares them against each other according to a set of rules. 
 
